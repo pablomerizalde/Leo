@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8"/>
+	<title>Asignación de citas- Laboratorio LEO</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+<body>
+	<!-- NAVBAR  -->
+	<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+		<a href="#" class="navbar-brand">LEO</a>
+
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto justify-content-end">
+						<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									Plantillas
+								</a>
+								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+										<a class="dropdown-item" href="#">Asignación de citas</a>
+										<div class="dropdown-divider"></div>
+										<a class="dropdown-item" href="./sancionEstudiante.html">Sanción Estudiante</a>
+										<a class="dropdown-item" href="./sancionTutor.html">Sanción Tutor</a>
+								</div>
+						</li>
+				</ul>
+		</div>
+	</nav>
+	<!-- PAGE  -->
+	<div class="container">
+		<div class="row" style="margin-top: 75px">
+			<div class="col-md-4">
+				<form>
+					<div class="col-md-10 offset-md-1 row">
+						<label>estudiante:</label>
+						<input type="text" name="nombre" class="form-control" placeholder="Juanito Perez">
+					</div>
+					<div class="col-md-10 offset-md-1 row">
+						<label>tutor:</label>
+						<input type="text" name="tutor" class="form-control" placeholder="Laura Gil">
+						<div class="form check form-check-inline">
+							<div class="form-check-label form-check-inline">
+								<input id="check_id_him" type="radio" class="form-check-input" name="sexo" value="1" checked>
+								Él
+							</div>
+							<div class="form-check-label form-check-inline">
+								<input id="check_id_her" type="radio" class="form-check-input" name="sexo" value="0">
+								Ella
+							</div>
+						</div>
+					</div>
+					<div class="col-md-10 offset-md-1 row">
+						<label>fecha:</label>
+						<input type="date" name="fecha" class="form-control" >
+					</div>
+					<div class="col-md-10 offset-md-1 row">
+						<label>hora:</label>
+						<div class="input-group">
+							<input type="text" name="hora" class="form-control col-md-3 col-lg-3 col-2 col-xl-2" placeholder="16">
+							<span class="input-group-text col-1 ">:</span>
+							<input type="text" name="hora" class="form-control col-md-3 col-lg-3 col-2 col-xl-2" placeholder="00" disabled style="background:white"> 
+						</div>
+					</div>
+					<div class="col-md-11 offset-md-1 mb-2 row">
+						<label>Topico:</label>
+						<textarea type="text" name="topic" rows="5" cols="80" class="form-control"></textarea>
+					</div>
+				</form>
+			</div>
+			<div class="col-md-8 mt-4">
+				<div class="row">
+					<textarea type="text" name="asunto" rows="1" cols="100" class="form-control"></textarea>
+				</div>
+				<div class="row">
+					<textarea type="text" name="res" rows="15" cols="100" class="form-control"></textarea>
+				</div>
+				
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md offset-md-4">	
+			<button onclick="copiar()" class="btn btn-primary">Copiar</button>
+			<button onclick="copiarS()" class="btn btn-secondary">Copiar Asunto</button>
+		</div>
+		</div>
+	</div>
+	
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<script src="dateUtilities.js"></script>
+
+	<script type="text/javascript">
+
+		var meses = new Array ("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+		var diasSemana = new Array("Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado");
+		var textoL;
+
+		function copiar() {
+
+		var copyText = document.getElementById("myInput");
+		$("textarea[name=res]").select();
+		document.execCommand("Copy");
+		}
+
+		function copiarS() {
+
+		var copyText = document.getElementById("myInput");
+		$("textarea[name=asunto]").select();
+		document.execCommand("Copy");
+
+		}
+		var name, tut, fechaa, hor, topico,sexo="el tutor";
+		$( document ).ready(function() {
+		    $("input[name=nombre]").change(function(){
+		    	name =$("input[name=nombre]").val();
+		    	name = MaysPrimera(name);
+		    	printea();
+		    });
+		    $("input[name=tutor]").change(function(){
+		    	tut =$("input[name=tutor]").val();
+		    	printea();
+		    });
+			$("textarea[name=topic]").change(function(){
+		    	topico =$("textarea[name=topic]").val();
+		    	printea();
+		    });
+		    $("input[name=sexo]").change(function(){
+				var booleano = $("input[name=sexo]:checked").val()
+				if(booleano==1)
+				{
+					sexo="el tutor";
+				}
+				else 
+				{
+					sexo="la tutora";
+				}
+				printea();
+			});
+			$("input[name=fecha]").change(function(){
+		    	fechaa =$("input[name=fecha]").val();
+		    	fechaa = escribirFecha(fechaa);
+		    	printea();
+		    });
+		    $("input[name=hora]").change(function(){
+		    	hor =$("input[name=hora]").val();
+		    	hor = queHora(hor);
+		    	printea();
+		    });
+		});
+
+		function printea(){
+			textoL = "Hola " +name +", \n \n \nGracias por responder la encuesta, \n \nTu cita queda asignada con "+ sexo+" " + tut + " el día "+ fechaa +" a la"+ hor +" \n \nPor favor confirma tu asistencia respondiendo a este correo electrónico y/o a la invitación por calendario. \nEn caso de no poder asistir a la tutoría, recuerda que debes cancelarla por lo menos con 24 horas de antelación escribiendo a este correo. De no ser recibida la cancelación, serás sancionado por 15 días calendario. Si, el tutor asignado llegase a faltar a la tutoría, por favor escríbanos para poder sancionarlo. \n \n \nTe esperamos en LEO (tercer piso del bloque C). \n \n Anexo, temas de la tutoría: \n \n \"" + topico + "\"";
+			$("textarea[name=res]").val(textoL);
+			$("textarea[name=asunto]").val("Tutoría el "+ fechaa + " a la" +hor);
+		}
+
+	</script>
+</body>
+</html>

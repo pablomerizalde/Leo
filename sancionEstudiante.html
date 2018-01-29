@@ -1,0 +1,156 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+	<title>Sanción Estudiantes - Laboratorio LEO</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+
+</head>
+<body>
+    	<!-- NAVBAR  -->
+	<nav class="navbar fixed-top navbar-expand-lg navbar-light bg-light">
+		<a href="#" class="navbar-brand">  LEO</a>
+
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+			<span class="navbar-toggler-icon"></span>
+		</button>
+		<div class="collapse navbar-collapse" id="navbarSupportedContent">
+				<ul class="navbar-nav mr-auto justify-content-end">
+						<li class="nav-item dropdown">
+								<a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+									Plantillas
+								</a>
+								<div class="dropdown-menu" aria-labelledby="navbarDropdown">
+										<a class="dropdown-item" href="./asignacion.html">Asignación de citas</a>
+										<div class="dropdown-divider"></div>
+										<a class="dropdown-item" href="#">Sanción Estudiante</a>
+										<a class="dropdown-item" href="./sancionTutor.html">Sanción Tutor</a>
+								</div>
+						</li>
+				</ul>
+		</div>
+	</nav>
+
+	<div class="container">
+		<div class="row" style="margin-top: 75px">
+			<div class="col-md-4">
+				<form>
+					<div class="col-md-10 offset-md-1 row">
+						<label>estudiante:</label>
+						<input type="text" name="nombre" class="form-control" placeholder="Juanito Perez">
+					</div>
+					<div class="col-md-10 offset-md-1 row">
+						<label>fecha inicio:</label>
+						<input type="date" name="fecha" class="form-control" >
+					</div>
+					<div class="col-md-10 offset-md-1 row">
+						<label>La sanción tiene una duración diferente:</label>
+						<div class="form check form-check-inline">
+							<div class="form-check-label form-check-inline">
+								<input id="check_id" type="checkbox" class="form-check-input" name="necFecha" value="true">
+								Si
+							</div>
+						</div>
+					</div>
+					<div class="col-md-10 offset-md-1 row">
+						<label>fecha fin:</label>
+						<input type="date" name="fechafin" class="form-control" disabled>
+					</div>
+				</form>
+			</div>
+			<div class="col-md-8 mt-4">
+				<div class="row">
+					<textarea type="text" name="asunto" rows="1" cols="100" class="form-control"></textarea>
+				</div>
+				<div class="row">
+					<textarea type="text" name="res" rows="15" cols="100" class="form-control"></textarea>
+				</div>
+				
+			</div>
+		</div>
+		<div class="row">
+			<div class="col-md offset-md-4 mt-2">	
+			<button onclick="copiar()" class="btn btn-primary">Copiar</button>
+			<button onclick="copiarS()" class="btn btn-secondary">Copiar Asunto</button>
+		</div>
+		</div>
+	</div>
+
+
+
+    <!-- PAGE  -->
+	<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<script src="dateUtilities.js"></script>
+
+	<script type="text/javascript">
+
+		var meses = new Array ("Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio","Agosto","Septiembre","Octubre","Noviembre","Diciembre");
+		var diasSemana = new Array("Domingo","Lunes","Martes","Miércoles","Jueves","Viernes","Sábado");
+		var textoL;
+	
+
+		function copiar() {
+
+		var copyText = document.getElementById("myInput");
+		$("textarea[name=res]").select();
+		document.execCommand("Copy");
+		}
+
+		function copiarS() {
+
+		var copyText = document.getElementById("myInput");
+		$("textarea[name=asunto]").select();
+		document.execCommand("Copy");
+
+		}
+		var name, fechaa, necFech=false, fechafinal, fechafinalp1;
+		$( document ).ready(function() {
+		    $("input[name=nombre]").change(function(){
+		    	name =$("input[name=nombre]").val();
+		    	name = MaysPrimera(name);
+		    	printea();
+		    });
+		
+			
+		    $("input[name=fecha]").change(function(){
+		    	fechaa =$("input[name=fecha]").val();
+				if(!necFech){
+					fechafinal = addDays(14,fechaa);
+					fechafinalp1 = addDays(15,fechaa);
+				}
+		    	fechaa = escribirFecha(fechaa);
+		    	printea();
+				
+		    });
+			$("input[name=necFecha]").change(function(){
+				$("input[name=fechafin]").attr("disabled", false);
+				$("input[name=necFecha]").attr("disabled", true);
+				
+		    });
+
+			$("input[name=fechafin]").change(function(){
+		    	fechafinal =$("input[name=fechafin]").val();
+		    	fechafinal = escribirFecha(fechafinal);
+				fechafinalp1 = addDays(15,fechaa);
+		    	printea();
+		    });
+
+		});
+
+
+		function printea(){
+			textoL = name + ',\n\nTe recordamos que tienes una sanción desde '+ fechaa +' hasta '+ fechafinal +' por no haber asistido a una tutoría previamente programada. \n \nEstaremos felices de atenderte a partir de '+fechafinalp1 +', te esperamos!'
+			$("textarea[name=res]").val(textoL);
+			$("textarea[name=asunto]").val("Sanción, Laboratorio LEO ");
+		}
+
+		
+	</script>
+
+
+</body>
+</html>
